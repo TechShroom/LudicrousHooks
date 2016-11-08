@@ -24,8 +24,6 @@
  */
 package com.techshroom.ludicroushooks.entity;
 
-import java.io.IOException;
-
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializer;
@@ -53,7 +51,7 @@ public enum Vec3dDataSerializer implements DataSerializer<Vec3d> {
     }
 
     @Override
-    public Vec3d read(PacketBuffer buf) throws IOException {
+    public Vec3d read(PacketBuffer buf) {
         byte state = buf.readByte();
         if (state == NULL) {
             return null;

@@ -24,7 +24,6 @@
  */
 package com.techshroom.ludicroushooks.entity;
 
-import java.io.IOException;
 import java.util.UUID;
 
 import net.minecraft.network.PacketBuffer;
@@ -44,7 +43,7 @@ public enum UUIDDataSerializer implements DataSerializer<UUID> {
     }
 
     @Override
-    public UUID read(PacketBuffer buf) throws IOException {
+    public UUID read(PacketBuffer buf) {
         boolean isNull = buf.readBoolean();
         if (isNull) {
             return null;

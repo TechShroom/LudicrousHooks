@@ -24,8 +24,6 @@
  */
 package com.techshroom.ludicroushooks.entity;
 
-import java.io.IOException;
-
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializer;
@@ -42,7 +40,7 @@ public enum LongDataSerializer implements DataSerializer<Long> {
     }
 
     @Override
-    public Long read(PacketBuffer buf) throws IOException {
+    public Long read(PacketBuffer buf) {
         boolean isNull = buf.readBoolean();
         if (isNull) {
             return null;
