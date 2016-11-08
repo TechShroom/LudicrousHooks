@@ -1,0 +1,11 @@
+# package
+*.jar
+
+# gradle
+.gradle/
+build/
+!/gradle/wrapper/gradle-wrapper.jar
+/.apt_generated/
+
+# mc
+/run/

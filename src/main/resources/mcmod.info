@@ -1,0 +1,20 @@
+[
+{
+  "modid": "ludicroushooks",
+  "name": "LudicrousHooks",
+  "description":"Adds grappling hook stuffs.",
+  "version": "@VERSION@",
+  "mcversion": "@MC_VERSION@",
+  "url": "https://techshroom.com",
+  "authors": [ "kenzierocks" ],
+  "credits": "GitHub contributors",
+  "logoFile": "",
+  "screenshots": [],
+  "requiredMods": [
+      "Forge"
+  ],
+  "dependencies": [],
+  "dependants" : [],
+  "useDependencyInformation": true
+}
+]

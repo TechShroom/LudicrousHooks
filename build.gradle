@@ -1,0 +1,106 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven { url = "http://files.minecraftforge.net/maven" }
+        maven {
+            name "central snapshots"
+            url "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+    }
+
+    dependencies {
+        classpath group: 'com.techshroom', name: 'Aversion', version: '3.0.0'
+            classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
+    }
+}
+plugins {
+    id "com.github.hierynomus.license" version '0.13.1'
+}
+
+apply plugin: 'java'
+apply plugin: 'aversion-apt'
+apply plugin: 'aversion-util'
+
+util {
+    javaVersion = '1.8'
+}
+
+archivesBaseName = 'ludicrous-hooks'
+
+defaultTasks 'clean', 'licenseFormat', 'build'
+
+configurations.all {
+    resolutionStrategy {
+        cacheChangingModulesFor 0, 'seconds'
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        name "central snapshots"
+        url "https://oss.sonatype.org/content/repositories/snapshots/"
+    }
+}
+
+dependencies {
+    compileOnly group: 'com.techshroom', name: 'jsr305-plus', version: '0.0.1'
+
+    addAPTReqWComp group: 'com.google.guava', name: 'guava', version: '19.0'
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+apply plugin: 'net.minecraftforge.gradle.forge'
+
+minecraft {
+    version = "12.18.2.2106"
+    runDir = "run"
+    mappings = "snapshot_20161015"
+}
+
+processResources {
+    inputs.property "modid", project.archivesBaseName
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
+    from (sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+
+        expand 'modid': project.archivesBaseName,
+               'version': project.version,
+               'mcversion': project.minecraft.version
+    }
+
+    from (sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}
+
+javadoc {
+    options.addStringOption('Xdoclint:none', '-quiet')
+}
+
+configure([compileJava, compileTestJava]) {
+    options.compilerArgs += ['-Xlint:all', '-Xlint:-path']
+    options.deprecation = true
+    options.encoding = 'UTF-8'
+    options.incremental = true
+    options.fork = true
+}
+
+license {
+    ext {
+        name = project.name
+        organization = project.organization
+        url = project.url
+    }
+    header = rootProject.file('HEADER.txt')
+    ignoreFailures = false
+    strictCheck = true
+    include '**/*.java'
+    mapping {
+        java = 'SLASHSTAR_STYLE'
+    }
+}
